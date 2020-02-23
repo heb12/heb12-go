@@ -1,6 +1,6 @@
 package bver
 
-// A Version has basic information about a Bible version
+// A VersionInfo has basic information about a Bible version
 type VersionInfo struct {
 	ID        string
 	Name      string
