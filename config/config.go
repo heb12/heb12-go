@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/muesli/go-app-paths"
+	gap "github.com/muesli/go-app-paths"
 )
 
 // DataDirs contains the directories in which different data is stored
@@ -29,9 +29,13 @@ var DataFiles = struct {
 	"bookmarks.json",
 }
 
-// GetScope returns the appaths scope for Heb12
-func GetScope() *apppaths.Scope {
-	return apppaths.NewScope(apppaths.User, "heb12.com", "heb12")
+func init() {
+	InitDirs()
+}
+
+// GetScope returns the gap scope for Heb12
+func GetScope() *gap.Scope {
+	return gap.NewScope(gap.User, "heb12.com", "heb12")
 }
 
 // InitDirs makes all of the directories required for storing data and configuration
