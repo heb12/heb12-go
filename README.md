@@ -2,18 +2,18 @@
 
 This program is the basic code which all Heb12 software can include as a library. It is meant to easily centralize all of the code that is shared between the programs. That way each program can use this as a library, but have the platform specific code stored separately.
 
-These new tools are written in Go. This is done because Go is fast, simple, enforces good documentation, and has good support throughout different platforms. It can be used for the destkop app, the mobile apps, the website back end, and (with WebAssembly) even the front end if so desired.
+These new tools are written in Go. This is done because Go is fast, simple, enforces good documentation, and has good support throughout different platforms. It can be used as the foundation for the destkop app, the mobile apps, the website back end, and (with WebAssembly) even the website front end if so desired.
 
-Some code is stored in other repositories. This is because those modules may specifically be useful for other programs, and it makes sense to maintain them separately. bref is an example of this. 
+Some code is stored in other repositories. This is because those modules may specifically be useful for other programs, and it makes sense to maintain them separately. [bref](https://code.heb12.com/Heb12/bref) is an example of this.
 
 **Note:** This software is in its early stages and is subject to have breaking changes. Do not depend on it for anything important yet.
 
 ## TODO
 
 - [x] Basic Bible version parser (bver)
-- [ ] Basic OSIS document manager (osistool)
+- [x] Basic OSIS document manager (osistool)
 - [ ] Document downloader (to download new works from different sources)
-- [ ] CLI tool
+- [ ] CLI tool (a basic CLI wrapper around everything)
 - [ ] Search tool (bsearch)
 
 ## License
