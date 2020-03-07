@@ -1,9 +1,10 @@
 package osistool
 
 import (
+	"code.heb12.com/Heb12/bref"
 	"encoding/xml"
 	"io/ioutil"
-	"os"
+	"strings"
 )
 
 // Osis contains all of the XML data in an OSIS work
@@ -15,7 +16,7 @@ type Osis struct {
 type osisText struct {
 	XMLName xml.Name `xml:"osisText"`
 	Header  header   `xml:"header"`
-	Div     div      `xml:"div"`
+	Div     []div    `xml:"div"`
 }
 
 type header struct {
@@ -75,11 +76,6 @@ func (osisData *Osis) Info() (Work, error) {
 
 // LoadOsis loads the OSIS data from a file specified by filepath
 func LoadOsis(filename string) (*Osis, error) {
-	osisFile, err := os.Open(filename)
-	if err != nil {
-		return &Osis{}, err
-	}
-	defer osisFile.Close()
 	byteValue, err := ioutil.ReadFile(filename)
 	var osisData Osis
 	err = xml.Unmarshal(byteValue, &osisData)
@@ -90,11 +86,28 @@ func LoadOsis(filename string) (*Osis, error) {
 }
 
 // GetVerses processes XML and puts verses together based on the reference
-func (osisData *Osis) GetVerses(ref Reference) []string {
+func (osisData *Osis) GetVerses(ref bref.Reference) ([]string, error) {
+	err := bref.Check(ref)
+	if err != nil {
+		return []string{}, err
+	}
 	var verses []string
 	for i := ref.From - 1; i < ref.To; i++ {
-		verse := osisData.OsisText.Div.Chapters[ref.Chapter-1].Verses[i]
+		bookInfo, err := bref.GetBookInfo(ref.ID)
+		if err != nil {
+			return []string{}, err
+		}
+		// If the file has one book, handle it differently (to allow for the split version of gratis.bible)
+		var verse string
+		if len(osisData.OsisText.Div) > 1 {
+			verse = osisData.OsisText.Div[bookInfo.Order-1].Chapters[ref.Chapter-1].Verses[i]
+		} else {
+
+			verse = osisData.OsisText.Div[0].Chapters[ref.Chapter-1].Verses[i]
+		}
+		// Remove duplicate spaces
+		verse = strings.Join(strings.Fields(verse), " ")
 		verses = append(verses, verse)
 	}
-	return verses
+	return verses, nil
 }
