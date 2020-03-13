@@ -1,4 +1,5 @@
-package osistool
+// Package osisparse loads and parses OSIS works
+package osisparse
 
 import (
 	"encoding/xml"

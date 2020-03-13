@@ -1,4 +1,4 @@
-package osistool
+package osisparse
 
 import (
 	"strings"
@@ -22,7 +22,7 @@ func TestCheck(t *testing.T) {
 	}
 
 	for _, ref := range refs {
-		osis, err := LoadOsis("bibles_test/en/asv/" + strings.ToLower(ref.ID) + ".xml")
+		osis, err := LoadOsis("../bibles_test/en/asv/" + strings.ToLower(ref.ID) + ".xml")
 		if err != nil {
 			t.Errorf("Error loading OSIS file: %v", err)
 		}
@@ -44,7 +44,7 @@ func TestGetVerses(t *testing.T) {
 		{Reference{"john", 3, 16, 17}, []string{"For God so loved the world, that he gave his only begotten Son, that whosoever believeth on him should not perish, but have eternal life.", "For God sent not the Son into the world to judge the world; but that the world should be saved through him."}},
 	}
 	for _, table := range tables {
-		osis, err := LoadOsis("bibles_test/en/asv/" + table.ref.ID + ".xml")
+		osis, err := LoadOsis("../bibles_test/en/asv/" + table.ref.ID + ".xml")
 		if err != nil {
 			t.Errorf("Error loading OSIS file: %v", err)
 		}

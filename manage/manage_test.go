@@ -1,16 +1,16 @@
-package osistool
+package manage
 
 import "testing"
 
 func TestNew(t *testing.T) {
-	_, err := New("bibles_test")
+	_, err := New("../bibles_test")
 	if err != nil {
 		t.Error(err)
 	}
 }
 
 func TestListAvailable(t *testing.T) {
-	manage, _ := New("bibles_test")
+	manage, _ := New("../bibles_test")
 	versions, err := manage.ListAvailable()
 	if err != nil {
 		t.Error(err)
