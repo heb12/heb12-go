@@ -47,7 +47,12 @@ func main() {
 					if err != nil {
 						return err
 					}
-					text, err := osis.GetVerses(reference)
+					text, err := osis.GetVerses(osistool.Reference{
+						ID:      reference.ID,
+						Chapter: reference.Chapter,
+						From:    reference.From,
+						To:      reference.To,
+					})
 					if err != nil {
 						return err
 					}
