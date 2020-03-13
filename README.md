@@ -1,4 +1,4 @@
-# Heb12 Tools
+# Heb12 Go
 
 This program is the basic code which all Heb12 software can include as a library. It is meant to easily centralize all of the code that is shared between the programs. That way each program can use this as a library, but have the platform specific code stored separately.
 
@@ -14,6 +14,7 @@ Some code is stored in other repositories. This is because those modules may spe
 - [x] Basic OSIS document manager (osistool)
 - [ ] Document downloader (to download new works from different sources)
 - [ ] CLI tool (a basic CLI wrapper around everything)
+- [ ] Separate osistool between just OSIS parsing and actually managing the OSIS works
 - [ ] Search tool (bsearch)
 
 ## License
