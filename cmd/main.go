@@ -9,7 +9,7 @@ import (
 
 	"code.heb12.com/heb12/bref"
 	"code.heb12.com/heb12/heb12/config"
-	"code.heb12.com/heb12/heb12/osisparse"
+	"code.heb12.com/heb12/heb12/osis"
 )
 
 // printVerses prints all the verses with verse numbers
@@ -43,11 +43,11 @@ func main() {
 					}
 					scope := config.GetScope()
 					dataDir, err := scope.DataDir()
-					osis, err := osisparse.LoadOsis(dataDir + "/" + config.DataDirs.GratisSplit + "/en/asv.xml")
+					osisData, err := osis.Load(dataDir + "/" + config.DataDirs.GratisSplit + "/en/asv.xml")
 					if err != nil {
 						return err
 					}
-					text, err := osis.GetVerses(osisparse.Reference{
+					text, err := osisData.GetVerses(osis.Reference{
 						ID:      reference.ID,
 						Chapter: reference.Chapter,
 						From:    reference.From,

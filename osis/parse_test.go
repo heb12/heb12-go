@@ -1,4 +1,4 @@
-package osisparse
+package osis
 
 import (
 	"strings"

@@ -1,5 +1,5 @@
-// Package osisparse loads and parses OSIS works
-package osisparse
+// Package osis loads and parses OSIS works
+package osis
 
 import (
 	"encoding/xml"
@@ -76,8 +76,8 @@ func (osisData *Osis) Info() *Work {
 	return &osisData.OsisText.Header.Work
 }
 
-// LoadOsis loads the OSIS data from a file specified by filepath
-func LoadOsis(filename string) (*Osis, error) {
+// Load loads the OSIS data from a file specified by filepath
+func Load(filename string) (*Osis, error) {
 	byteValue, err := ioutil.ReadFile(filename)
 	var osisData Osis
 	err = xml.Unmarshal(byteValue, &osisData)
