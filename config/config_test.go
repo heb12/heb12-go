@@ -23,6 +23,14 @@ var testConfig = Config{
 	},
 }
 
+func TestGratisDir(t *testing.T) {
+	dir, err := GratisDir()
+	if err != nil {
+		t.Error(err)
+	}
+	t.Log(dir)
+}
+
 func TestWriteConfig(t *testing.T) {
 	err := WriteConfig(testConfig)
 	if err != nil {
