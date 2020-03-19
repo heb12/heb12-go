@@ -12,10 +12,47 @@ Some code is stored in other repositories. This is because those modules may spe
 
 - [x] Basic Bible version parser (bver)
 - [x] Basic OSIS document manager (osistool)
-- [ ] Document downloader (to download new works from different sources)
 - [ ] CLI tool (a basic CLI wrapper around everything)
-- [ ] Separate osistool between just OSIS parsing and actually managing the OSIS works
-- [ ] Search tool (bsearch)
+- [x] Separate osistool between just OSIS parsing and actually managing the OSIS works
+- [ ] Search tool (client side generation and rendering of search texts)
+
+## Packages
+
+This heb12 module includes several packages which have different uses. 
+
+### bible
+
+bible uses the modules bref, heb12/manage, heb12/config, and heb12/osis to get Bible verse.
+
+[More documentation](https://pkg.go.dev/code.heb12.com/heb12/heb12/bible?tab=doc)
+
+### bver
+
+A Bible version parser. Useful for parsing human input when it comes to translations, but it does not include all possible Bible versions, and it is not meant to do so. This should not be used in most situations.
+
+[More documentation](https://pkg.go.dev/code.heb12.com/heb12/heb12/bver?tab=doc)
+
+### cmd
+
+A basic CLI for Heb12. It (will) include features to use the rest of the heb12 module, and for reading the Bible from the command line.
+
+### config
+
+Config is made for Heb12-specific configuration for using the other packages.
+
+[More documentation](https://pkg.go.dev/code.heb12.com/heb12/heb12/config?tab=doc)
+
+### manage
+
+A manager for OSIS works in a directory. It provides information about them and manages the directory structure.
+
+[More documetation](https://pkg.go.dev/code.heb12.com/heb12/heb12/manage?tab=doc)
+
+### osis
+
+An OSIS parser. It provides functions to parse OSIS Bible files, and give information about them and the Bible text itself.
+
+[More documetation](https://pkg.go.dev/code.heb12.com/heb12/heb12/osis?tab=doc)
 
 ## License
 
