@@ -35,16 +35,17 @@ func init() {
 
 // GetScope returns the gap scope for Heb12
 func GetScope() *gap.Scope {
-	return gap.NewScope(gap.User, "heb12.com", "heb12")
+	return gap.NewScope(gap.User, "heb12")
 }
 
 // A shortcut to get the directory for the Gratis versions
 func GratisDir() (string, error) {
 	scope := GetScope()
-	dataDir, err := scope.DataDir()
+	dataDirs, err := scope.DataDirs()
 	if err != nil {
 		return "", err
 	}
+	dataDir := dataDirs[0]
 
 	return dataDir + "/" + DataDirs.Gratis, nil
 }
@@ -52,10 +53,11 @@ func GratisDir() (string, error) {
 // InitDirs makes all of the directories required for storing data and configuration
 func InitDirs() error {
 	scope := GetScope()
-	dataDir, err := scope.DataDir()
+	dataDirs, err := scope.DataDirs()
 	if err != nil {
 		return err
 	}
+	dataDir := dataDirs[0]
 	configDir, err := scope.ConfigPath("")
 	if err != nil {
 		return err
