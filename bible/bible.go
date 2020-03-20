@@ -10,14 +10,23 @@ import (
 	"errors"
 )
 
+func getManager() (*manage.Config, error) {
+	gratisDir, err := config.GratisDir()
+	if err != nil {
+		return &manage.Config{}, err
+	}
+	manager, err := manage.New(gratisDir)
+	if err != nil {
+		return &manage.Config{}, err
+	}
+	return manager, err
+}
+
+// Get returns Bible text from a string reference with bref, manage, and osis
 func Get(reference string, version string) ([]string, error) {
 	// Prepare all of the different data from the input
 
-	gratisDir, err := config.GratisDir()
-	if err != nil {
-		return []string{}, err
-	}
-	manager, err := manage.New(gratisDir)
+	manager, err := getManager()
 	if err != nil {
 		return []string{}, err
 	}
@@ -59,4 +68,24 @@ func Get(reference string, version string) ([]string, error) {
 	}
 
 	return text, nil
+}
+
+func List() (map[string][]string, error) {
+	manager, err := getManager()
+	if err != nil {
+		return map[string][]string{}, err
+	}
+
+	versions, err := manager.ListAvailable()
+	return versions, err
+}
+
+func ListLanguages() ([]string, error) {
+	manager, err := getManager()
+	if err != nil {
+		return []string{}, err
+	}
+
+	langs, err := manager.ListLanguages()
+	return langs, err
 }
