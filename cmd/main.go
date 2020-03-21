@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/urfave/cli/v2"
 
@@ -45,7 +46,7 @@ func main() {
 						return nil
 					}
 					ref := c.Args().First()
-					text, err := bible.Get(ref, translation)
+					text, err := bible.Get(ref, strings.ToLower(translation))
 					if err != nil {
 						return err
 					}
