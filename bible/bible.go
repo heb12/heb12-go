@@ -1,4 +1,4 @@
-// Package bible uses the modules bref, heb12/manage, and heb12/osis to get Bible verses
+// Package bible uses the modules bref, heb12/manage, and heb12/osis to get Bible verses from Split Gratis Bible
 package bible
 
 import (
@@ -8,6 +8,7 @@ import (
 	"code.heb12.com/heb12/heb12/osis"
 
 	"errors"
+	"strings"
 )
 
 func getManager() (*manage.Config, error) {
@@ -15,10 +16,13 @@ func getManager() (*manage.Config, error) {
 	if err != nil {
 		return &manage.Config{}, err
 	}
-	manager, err := manage.New(gratisDir)
-	if err != nil {
-		return &manage.Config{}, err
-	}
+
+	manager, err := manage.New(
+		manage.Config{
+			BiblePath: gratisDir,
+			Split:     true,
+		},
+	)
 	return manager, err
 }
 
@@ -52,7 +56,7 @@ func Get(reference string, version string) ([]string, error) {
 
 	// Get the actual Bible text with heb12/osis
 
-	osisData, err := osis.Load(manager.GetPath(version, language))
+	osisData, err := osis.Load(manager.GetPath(version, language) + "/" + strings.ToLower(ref.ID) + ".xml")
 	if err != nil {
 		return []string{}, err
 	}
