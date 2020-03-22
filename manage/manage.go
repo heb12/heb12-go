@@ -12,13 +12,16 @@ import (
 type Config struct {
 	// BiblePath path to the directory of Gratis Bibles
 	BiblePath string
+	// Split determines whether or not to use the split version of Gratis Bibles
+	Split bool
 }
 
 // New generates a new Config (but only if the path exists)
-func New(path string) (*Config, error) {
-	_, err := filepath.Glob(path)
+func New(config Config) (*Config, error) {
+	_, err := filepath.Glob(config.BiblePath)
 	return &Config{
-		BiblePath: path,
+		BiblePath: config.BiblePath,
+		Split:     config.Split,
 	}, err
 }
 
@@ -37,9 +40,31 @@ func (c *Config) ListAvailable() (map[string][]string, error) {
 		}
 		for _, file := range files {
 			versionName := strings.Split(file, c.BiblePath+"/"+lang+"/")[1]
-			versionName = strings.Split(versionName, ".xml")[0]
+
+			// a normal Gratis Bible should be in the form of asv.xml
+			// but a split one will be just the version code
+			// (since it is a directory)
+			var split bool
+			if len(strings.Split(versionName, ".")) == 2 {
+				split = false
+			} else if len(strings.Split(versionName, ".")) == 1 {
+				split = true
+			}
+
+			if split != c.Split {
+				continue
+			}
+
+			if !c.Split {
+				versionName = strings.Split(versionName, ".xml")[0]
+			}
+
 			versions[lang] = append(versions[lang], versionName)
 		}
+	}
+
+	if len(versions) == 0 {
+		return map[string][]string{}, errors.New("No versions available")
 	}
 
 	return versions, nil
@@ -63,6 +88,11 @@ func (c *Config) ListLanguages() ([]string, error) {
 		langs = append(langs, lang)
 
 	}
+
+	if len(langs) == 0 {
+		return []string{}, errors.New("No language dirs")
+	}
+
 	return langs, nil
 }
 
@@ -91,7 +121,43 @@ func (c *Config) GetLanguage(ver string) (string, error) {
 
 // GetPath returns the full path of an OSIS Bible (when using normal GratisBible)
 func (c *Config) GetPath(ver string, lang string) string {
+	if c.Split {
+		return c.BiblePath + "/" + lang + "/" + ver + "/"
+	}
 	return c.BiblePath + "/" + lang + "/" + ver + ".xml"
+}
+
+// GetPathShort is identical to GetPath, except it only requires the version but not the language (requires that the language exists)
+func (c *Config) GetPathShort(ver string) (string, error) {
+	lang, err := c.GetLanguage(ver)
+	if err != nil {
+		return "", err
+	}
+
+	if c.Split {
+		return c.BiblePath + "/" + lang + "/" + ver + "/", nil
+	}
+	return c.BiblePath + "/" + lang + "/" + ver + ".xml", nil
+}
+
+// ListSplitBooks returns the books available when using Gratis Split
+func (c *Config) ListSplitBooks(ver string, lang string) ([]string, error) {
+	if !c.Split {
+		return []string{}, errors.New("ListSplit() is only for Gratis Split")
+	}
+
+	rawBooks, err := filepath.Glob(c.GetPath(ver, lang) + "/*")
+	if err != nil {
+		return []string{}, err
+	}
+
+	var books []string
+	for _, book := range rawBooks {
+		bookName := strings.Split(book, "/")[len(strings.Split(book, "/"))-1]
+		books = append(books, strings.Split(bookName, ".xml")[0])
+	}
+
+	return books, nil
 }
 
 // IsAvailable uses ListAvailable to determine is a certain language is available
