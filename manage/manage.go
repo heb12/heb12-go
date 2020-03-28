@@ -41,9 +41,8 @@ func (c *Config) ListAvailable() (map[string][]string, error) {
 		for _, file := range files {
 			versionName := strings.Split(file, c.BiblePath+"/"+lang+"/")[1]
 
-			// a normal Gratis Bible should be in the form of asv.xml
-			// but a split one will be just the version code
-			// (since it is a directory)
+			// a Gratis Bible should be in the form of asv.xml
+			// but there are also directories in the case of Gratis Split
 			var split bool
 			if len(strings.Split(versionName, ".")) == 2 {
 				split = false
@@ -51,13 +50,11 @@ func (c *Config) ListAvailable() (map[string][]string, error) {
 				split = true
 			}
 
-			if split != c.Split {
+			if split != false {
 				continue
 			}
 
-			if !c.Split {
-				versionName = strings.Split(versionName, ".xml")[0]
-			}
+			versionName = strings.Split(versionName, ".xml")[0]
 
 			versions[lang] = append(versions[lang], versionName)
 		}
