@@ -11,10 +11,19 @@ import (
 	"strings"
 )
 
-func getManager() (*manage.Config, error) {
+type Config struct {
+	Manager *manage.Config
+}
+
+// New returns a basic configuration, a blank string uses heb12/config's value
+func New(dir string) (*Config, error) {
 	gratisDir, err := config.GratisDir()
 	if err != nil {
-		return &manage.Config{}, err
+		return &Config{}, err
+	}
+
+	if dir != "" {
+		gratisDir = dir
 	}
 
 	manager, err := manage.New(
@@ -23,17 +32,16 @@ func getManager() (*manage.Config, error) {
 			Split:     true,
 		},
 	)
-	return manager, err
+	return &Config{
+		manager,
+	}, err
 }
 
 // Get returns Bible text from a string reference with bref, manage, and osis
-func Get(reference string, version string) ([]string, error) {
+func (c *Config) Get(reference string, version string) ([]string, error) {
 	// Prepare all of the different data from the input
 
-	manager, err := getManager()
-	if err != nil {
-		return []string{}, err
-	}
+	manager := c.Manager
 
 	ref, err := bref.Parse(reference)
 	if err != nil {
@@ -61,35 +69,18 @@ func Get(reference string, version string) ([]string, error) {
 		return []string{}, err
 	}
 
-	text, err := osisData.GetVerses(osis.Reference{
+	return osisData.GetVerses(osis.Reference{
 		ID:      ref.ID,
 		Chapter: ref.Chapter,
 		From:    ref.From,
 		To:      ref.To,
 	})
-	if err != nil {
-		return []string{}, err
-	}
-
-	return text, nil
 }
 
-func List() (map[string][]string, error) {
-	manager, err := getManager()
-	if err != nil {
-		return map[string][]string{}, err
-	}
-
-	versions, err := manager.ListAvailable()
-	return versions, err
+func (c *Config) List() (map[string][]string, error) {
+	return c.Manager.ListAvailable()
 }
 
-func ListLanguages() ([]string, error) {
-	manager, err := getManager()
-	if err != nil {
-		return []string{}, err
-	}
-
-	langs, err := manager.ListLanguages()
-	return langs, err
+func (c *Config) ListLanguages() ([]string, error) {
+	return c.Manager.ListLanguages()
 }
