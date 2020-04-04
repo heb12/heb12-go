@@ -97,12 +97,12 @@ func (c *Config) ListLanguages() ([]string, error) {
 func (c *Config) GetLanguage(ver string) (string, error) {
 	versions, err := c.ListAvailable()
 	if err != nil {
-		return "", nil
+		return "", err
 	}
 
 	languages, err := c.ListLanguages()
 	if err != nil {
-		return "", nil
+		return "", err
 	}
 
 	for _, lang := range languages {
