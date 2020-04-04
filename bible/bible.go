@@ -43,12 +43,7 @@ func (c *Config) Get(reference string, version string) ([]string, error) {
 
 	manager := c.Manager
 
-	ref, err := bref.Parse(reference)
-	if err != nil {
-		return []string{}, err
-	}
-
-	err = bref.Check(ref)
+	ref, err := bref.Process(reference)
 	if err != nil {
 		return []string{}, err
 	}
@@ -64,13 +59,13 @@ func (c *Config) Get(reference string, version string) ([]string, error) {
 
 	// Get the actual Bible text with heb12/osis
 
-	osisData, err := osis.Load(manager.GetPath(version, language) + "/" + strings.ToLower(ref.ID) + ".xml")
+	osisData, err := osis.Load(manager.GetPath(version, language) + "/" + strings.ToLower(ref.Book.ID) + ".xml")
 	if err != nil {
 		return []string{}, err
 	}
 
 	return osisData.GetVerses(osis.Reference{
-		ID:      ref.ID,
+		ID:      ref.Book.ID,
 		Chapter: ref.Chapter,
 		From:    ref.From,
 		To:      ref.To,

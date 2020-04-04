@@ -13,13 +13,18 @@ import (
 )
 
 // printVerses prints all the verses with verse numbers
-func printVerses(verses []string, ref bref.Reference) {
+func printVerses(verses []string, ref bref.Info) {
 	for i, verse := range verses {
 		fmt.Println(i+ref.From, verse)
 	}
 }
 
 func main() {
+	hbible, err := bible.New("")
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	var translation string
 
 	app := &cli.App{
@@ -46,12 +51,12 @@ func main() {
 						return nil
 					}
 					ref := c.Args().First()
-					text, err := bible.Get(ref, strings.ToLower(translation))
+					text, err := hbible.Get(ref, strings.ToLower(translation))
 					if err != nil {
 						return err
 					}
 
-					reference, err := bref.Parse(ref)
+					reference, err := bref.Process(ref)
 					if err != nil {
 						return err
 					}
@@ -66,11 +71,11 @@ func main() {
 				Aliases: []string{"l"},
 				Usage:   "List downloaded Bible translations",
 				Action: func(c *cli.Context) error {
-					translations, err := bible.List()
+					translations, err := hbible.List()
 					if err != nil {
 						return err
 					}
-					languages, err := bible.ListLanguages()
+					languages, err := hbible.ListLanguages()
 					if err != nil {
 						return err
 					}
@@ -87,7 +92,7 @@ func main() {
 		},
 	}
 
-	err := app.Run(os.Args)
+	err = app.Run(os.Args)
 	if err != nil {
 		log.Fatal(err)
 	}
