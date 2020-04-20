@@ -7,7 +7,7 @@
 
 This program is the basic code which all Heb12 software can include as a library. It is meant to easily centralize all of the code that is shared between the programs. That way each program can use this as a library, but have the platform specific code stored separately.
 
-These new tools are written in Go. This is done because Go is fast, simple, enforces good documentation, and has good support throughout different platforms. It can be used as the foundation for the destkop app, the mobile apps, the website back end, and (with WebAssembly) even the website front end if so desired.
+These new tools are written in Go. This is done because Go is fast, simple, enforces good documentation, and has good support throughout different platforms. It can be used as the foundation for the desktop app, the mobile apps, the website back end, and (with WebAssembly) even the website front end if so desired.
 
 Some code is stored in other repositories. This is because those modules may specifically be useful for other programs, and it makes sense to maintain them separately. [bref](https://code.heb12.com/Heb12/bref) is an example of this.
 
@@ -57,13 +57,13 @@ A manager for OSIS works in a directory. It provides information about them and 
 
 An OSIS parser. It provides functions to parse OSIS Bible files, and give information about them and the Bible text itself.
 
-[More documetation](https://pkg.go.dev/code.heb12.com/heb12/heb12/osis?tab=doc)
+[More documentation](https://pkg.go.dev/code.heb12.com/heb12/heb12/osis?tab=doc)
 
 ### search
 
 Search provides functions to generate and read word indexes for the Bible for searching it.
 
-[More documetation](https://pkg.go.dev/code.heb12.com/heb12/heb12/search?tab=doc)
+[More documentation](https://pkg.go.dev/code.heb12.com/heb12/heb12/search?tab=doc)
 
 ## License
 
@@ -79,7 +79,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
-You shoud have received a copy of the GNU Lesser General Public License
+You should have received a copy of the GNU Lesser General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 See COPYING.LESSER for more license information.
