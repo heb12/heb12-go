@@ -42,6 +42,7 @@ func TestGetVerses(t *testing.T) {
 		{Reference{"heb", 4, 12, 12}, []string{"For the word of God is living, and active, and sharper than any two-edged sword, and piercing even to the dividing of soul and spirit, of both joints and marrow, and quick to discern the thoughts and intents of the heart."}},
 		{Reference{"2john", 1, 2, 2}, []string{"for the truth`s sake which abideth in us, and it shall be with us for ever:"}},
 		{Reference{"john", 3, 16, 17}, []string{"For God so loved the world, that he gave his only begotten Son, that whosoever believeth on him should not perish, but have eternal life.", "For God sent not the Son into the world to judge the world; but that the world should be saved through him."}},
+		//{Reference{"gen", 200, 1, 3}, []string{}},
 	}
 	for _, table := range tables {
 		osis, err := Load("../bibles_test/en/asv/" + table.ref.ID + ".xml")

@@ -1,5 +1,8 @@
 # Heb12 Go
 
+[![Latest Release](https://img.shields.io/badge/release-v0.1.1-blue.svg)](https://code.heb12.com/heb12/heb12/releases)
+[![GoDoc](https://godoc.org/github.com/golang/gddo?status.svg)](https://pkg.go.dev/code.heb12.com/heb12/heb12?tab=doc)
+
 This program is the basic code which all Heb12 software can include as a library. It is meant to easily centralize all of the code that is shared between the programs. That way each program can use this as a library, but have the platform specific code stored separately.
 
 These new tools are written in Go. This is done because Go is fast, simple, enforces good documentation, and has good support throughout different platforms. It can be used as the foundation for the destkop app, the mobile apps, the website back end, and (with WebAssembly) even the website front end if so desired.
@@ -54,9 +57,15 @@ An OSIS parser. It provides functions to parse OSIS Bible files, and give inform
 
 [More documetation](https://pkg.go.dev/code.heb12.com/heb12/heb12/osis?tab=doc)
 
+### search
+
+Search provides functions to generate and read word indexes for the Bible for searching it.
+
+[More documetation](https://pkg.go.dev/code.heb12.com/heb12/heb12/search?tab=doc)
+
 ## License
 
-Copyright (C) 2020 Ted Jameson
+Copyright (C) 2020 Josias Allestad <justjosias@tutanota.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
@@ -68,7 +77,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
-You should have received a copy of the GNU Lesser General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
+You shoud have received a copy of the GNU Lesser General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 See COPYING.LESSER for more license information.
