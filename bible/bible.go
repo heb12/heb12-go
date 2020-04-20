@@ -11,6 +11,7 @@ import (
 	"strings"
 )
 
+// Config provides a manager for the rest of the program to depend upon
 type Config struct {
 	Manager *manage.Config
 }
@@ -72,10 +73,12 @@ func (c *Config) Get(reference string, version string) ([]string, error) {
 	})
 }
 
+// List returns a list of all available versions in all available languages via the manager
 func (c *Config) List() (map[string][]string, error) {
 	return c.Manager.ListAvailable()
 }
 
+// List returns a list of all available versions for a specific language via the manager
 func (c *Config) ListLanguages() ([]string, error) {
 	return c.Manager.ListLanguages()
 }

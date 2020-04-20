@@ -79,6 +79,10 @@ func (osisData *Osis) Info() *Work {
 // Load loads the OSIS data from a file specified by filepath
 func Load(filename string) (*Osis, error) {
 	byteValue, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return &Osis{}, err
+	}
+
 	var osisData Osis
 	err = xml.Unmarshal(byteValue, &osisData)
 	if err != nil {

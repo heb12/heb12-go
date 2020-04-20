@@ -38,7 +38,7 @@ func GetScope() *gap.Scope {
 	return gap.NewScope(gap.User, "heb12")
 }
 
-// A shortcut to get the directory for the Gratis versions
+// GratisDir is a shortcut to get the directory for just the Gratis versions
 func GratisDir() (string, error) {
 	scope := GetScope()
 	dataDirs, err := scope.DataDirs()
@@ -103,9 +103,12 @@ type Font struct {
 	Size   int    `json:"size"`
 }
 
-// Write config writes config information to the config file
+// WriteConfig writes config information to the config file
 func WriteConfig(config Config) error {
 	bytes, err := json.MarshalIndent(config, "", "    ")
+	if err != nil {
+		return err
+	}
 
 	scope := GetScope()
 	configPath, err := scope.ConfigPath("config.json")
@@ -132,8 +135,17 @@ func ReadConfig() (Config, error) {
 	if err != nil {
 		return Config{}, err
 	}
+
 	bytes, err := ioutil.ReadFile(configPath)
+	if err != nil {
+		return Config{}, err
+	}
+
 	var config Config
 	err = json.Unmarshal(bytes, &config)
+	if err != nil {
+		return Config{}, err
+	}
+
 	return config, nil
 }
