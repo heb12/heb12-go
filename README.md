@@ -2,6 +2,7 @@
 
 [![Latest Release](https://img.shields.io/badge/release-v0.1.1-blue.svg)](https://code.heb12.com/heb12/heb12/releases)
 [![GoDoc](https://godoc.org/github.com/golang/gddo?status.svg)](https://pkg.go.dev/code.heb12.com/heb12/heb12?tab=doc)
+[![Go Report Card](https://goreportcard.com/badge/code.heb12.com/heb12/heb12)](https://goreportcard.com/report/code.heb12.com/heb12/heb12)
 
 **Note:** The [official repository](https://code.heb12.com/heb12/heb12) is hosted on [Heb12's Gitea instance](https://code.heb12.com/heb12), but is also [mirrored to GitHub](https://github.com/heb12/heb12).
 
