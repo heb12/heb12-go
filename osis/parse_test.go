@@ -7,13 +7,13 @@ import (
 
 func TestCheck(t *testing.T) {
 	refs := []Reference{
-		Reference{
+		{
 			ID:      "Gen",
 			Chapter: 1,
 			From:    1,
 			To:      2,
 		},
-		Reference{
+		{
 			ID:      "Gen",
 			Chapter: 4,
 			From:    4,
