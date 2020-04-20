@@ -78,7 +78,7 @@ func (c *Config) List() (map[string][]string, error) {
 	return c.Manager.ListAvailable()
 }
 
-// List returns a list of all available versions for a specific language via the manager
+// ListLanguages returns a list of all available versions for a specific language via the manager
 func (c *Config) ListLanguages() ([]string, error) {
 	return c.Manager.ListLanguages()
 }
